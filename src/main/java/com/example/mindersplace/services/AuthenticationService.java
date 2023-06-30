@@ -12,6 +12,7 @@ import com.example.mindersplace.utils.ApiResponse;
 import com.example.mindersplace.utils.GenerateApiResponse;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
@@ -31,6 +32,7 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthenticationService {
     private final ParentService parentService;
     private final MinderService minderService;
@@ -58,8 +60,9 @@ public class AuthenticationService {
                     .userName(registrationRequest.getUserName())
                     .user(savedUser)
                     .build();
-            parentService.registerParent(parent);
-            parent.setUser(savedUser);
+                parent.setUser(savedUser);
+            parentService.saveParent(parent);
+
         } else {
             if (registrationRequest.getUserCategory().toUpperCase().equals("MINDER")) {
                 Minder minder = Minder.builder()
@@ -73,28 +76,29 @@ public class AuthenticationService {
             }
         }
 
-        String token = generateVerificationToken(4);
-        VerificationToken verificationToken = new VerificationToken(
-                token,
-                LocalDateTime.now().plusMinutes(15),
-                LocalDateTime.now(),
-                savedUser
-        );
+//        String token = generateVerificationToken(4);
+//        VerificationToken verificationToken = new VerificationToken(
+//                token,
+//                LocalDateTime.now().plusMinutes(15),
+//                LocalDateTime.now(),
+//                savedUser
+//        );
 
-        verificationTokenService.save(verificationToken);
-        EmailNotificationRequest emailNotificationRequest = buildNotificationRequest(savedUser.getEmailAddress(), savedUser.getFirstName(), verificationToken.getVerificationToken());
+//        verificationTokenService.save(verificationToken);
+//        log.info(verificationToken.getVerificationToken());
+      //  EmailNotificationRequest emailNotificationRequest = buildNotificationRequest(savedUser.getEmailAddress(), savedUser.getFirstName(), verificationToken.getVerificationToken());
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(savedUser.getEmailAddress());
             String jwt = jwtService.generateToken(userDetails);
             return GenerateApiResponse.createdResponse(jwt);
     }
 
-    private EmailNotificationRequest buildNotificationRequest(String email, String firstname, String token) {
+    private EmailNotificationRequest buildNotificationRequest(String email, String firstName, String token) {
         EmailNotificationRequest request = new EmailNotificationRequest();
         request.setRecipientEmailAddress(email);
 
         Context context = new Context();
-        context.setVariables (Map.of ("lastname", firstname, "token", token));
+        context.setVariables (Map.of ("firstName", firstName, "token", token));
 
         String content = templateEngine.process ("Activate", context);
         request.setHtmlContent (content);

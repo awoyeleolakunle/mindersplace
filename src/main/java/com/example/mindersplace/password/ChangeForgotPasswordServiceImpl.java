@@ -1,4 +1,4 @@
-package password;
+package com.example.mindersplace.password;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

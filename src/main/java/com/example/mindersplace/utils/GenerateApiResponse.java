@@ -21,6 +21,7 @@ public class GenerateApiResponse {
     public static final String USER_NOT_FOUND = "Customer With This Email Does Not Exist";
     public static final String PASSWORD_RESET_SUCCESSFULLY = "Dear Customer, You Have Successfully Reset Your Password" ;
     public static final String INVALID_CREDENTIALS = "The credentials You Entered Are Invalid";
+    public static final String SESSION_BOOKED_SUCCESSFULLY = "You have successfully book a session for your child";
 
     public static ApiResponse createdResponse(Object data) {
         return ApiResponse.builder()

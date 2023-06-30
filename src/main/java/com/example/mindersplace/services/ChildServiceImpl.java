@@ -4,8 +4,6 @@ package com.example.mindersplace.services;
 import com.example.mindersplace.data.models.Child;
 import com.example.mindersplace.data.repositories.ChildRepository;
 import com.example.mindersplace.dtos.request.ChildRegistrationRequest;
-import com.example.mindersplace.utils.ApiResponse;
-import com.example.mindersplace.utils.GenerateApiResponse;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -20,7 +18,6 @@ public class ChildServiceImpl implements ChildService {
     @Override
     public Child save(ChildRegistrationRequest childRegistrationRequest) {
         Child child = modelMapper.map(childRegistrationRequest, Child.class);
-        Child savedChild = childRepository.save(child);
-        return savedChild;
+        return childRepository.save(child);
     }
 }

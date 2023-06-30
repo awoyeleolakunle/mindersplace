@@ -30,4 +30,7 @@ public class User {
     private Set<Roles> roles;
     @Enumerated(EnumType.STRING)
     private UserCategory userCategory;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private  Card card;
+
 }

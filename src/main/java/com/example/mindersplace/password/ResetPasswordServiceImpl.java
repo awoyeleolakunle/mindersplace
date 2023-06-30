@@ -1,4 +1,4 @@
-package password;
+package com.example.mindersplace.password;
 
 import com.example.mindersplace.data.models.User;
 import com.example.mindersplace.services.UserService;

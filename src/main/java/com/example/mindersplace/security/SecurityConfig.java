@@ -25,7 +25,8 @@ public class SecurityConfig {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/auth/register", "/api/v1/auth/login", "api/v1/bookAppointment",
-                        "api/v1/registerSchoolRun", "api/v1/registerHomeChildCare", "api/v1/contactUs")
+                        "api/v1/registerSchoolRun", "api/v1/registerHomeChildCare", "api/v1/contactUs",
+                        "api/v1/bookOnline/**")
                 .permitAll()
                 .requestMatchers("/api/v1/auth/value").hasAuthority(Roles.ADMIN.name())
                 .anyRequest()

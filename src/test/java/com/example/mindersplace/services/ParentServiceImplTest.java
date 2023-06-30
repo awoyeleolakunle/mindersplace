@@ -38,9 +38,8 @@ private ParentService parentService;
         userService.saveUser(user);
         Parent parent = new Parent();
         parent.setUser(user);
-        parentService.registerParent(parent);
+        parentService.saveParent(parent);
         parentService.addAChild("emailAddess@gmail.com", request);
-
 
         assertThat( parent.getChild()).isNotNull();
     }

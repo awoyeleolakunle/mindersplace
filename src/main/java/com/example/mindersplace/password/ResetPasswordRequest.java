@@ -1,4 +1,4 @@
-package password;
+package com.example.mindersplace.password;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

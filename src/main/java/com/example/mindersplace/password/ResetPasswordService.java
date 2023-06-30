@@ -1,4 +1,4 @@
-package password;
+package com.example.mindersplace.password;
 
 import com.example.mindersplace.utils.ApiResponse;
 
