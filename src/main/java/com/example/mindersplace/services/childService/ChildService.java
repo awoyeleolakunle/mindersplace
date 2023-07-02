@@ -6,4 +6,5 @@ import com.example.mindersplace.utils.ApiResponse;
 
 public interface ChildService {
    Child save(ChildRegistrationRequest childRegistrationRequest);
+
 }
