@@ -1,6 +1,10 @@
 package com.example.mindersplace.utils;
 
+import com.example.mindersplace.data.models.Child;
 import org.springframework.http.HttpStatus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GenerateApiResponse {
 
@@ -22,6 +26,10 @@ public class GenerateApiResponse {
     public static final String PASSWORD_RESET_SUCCESSFULLY = "Dear Customer, You Have Successfully Reset Your Password" ;
     public static final String INVALID_CREDENTIALS = "The credentials You Entered Are Invalid";
     public static final String SESSION_BOOKED_SUCCESSFULLY = "You have successfully book a session for your child";
+    public static final String CLOCK_OUT_SUCCESSFUL = "You have successfully clocked out fo today";
+    public static final String TRY_AGAIN ="Something went wrong, please try again" ;
+    public static final String RECORD_NOT_FOUND = "Record not found, please try again";
+    public static final String CARD_SUCCESSFULLY_SAVED ="You have successfully saved a card" ;
 
     public static ApiResponse createdResponse(Object data) {
         return ApiResponse.builder()
@@ -44,6 +52,20 @@ public class GenerateApiResponse {
         return ApiResponse.builder()
                 .data(data)
                 .isSuccessful(false)
+                .build();
+    }
+    public static ApiResponse sendData(Long data ){
+        return ApiResponse.builder()
+                .data(data)
+                .isSuccessful(true)
+                .build();
+    }
+
+    public static ApiResponse listOfChild(List<Child> childList) {
+        return ApiResponse.builder()
+                .data(childList)
+                .isSuccessful(true)
+                .httpStatus(HttpStatus.OK)
                 .build();
     }
 }

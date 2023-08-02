@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -27,7 +29,7 @@ public class Parent {
     private  Long id;
     private String userName;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<BookingRecord> bookingRecord = new ArrayList<>();
+    private List<BookingRecord> bookingRecord;
     private boolean isActive;
 
 }

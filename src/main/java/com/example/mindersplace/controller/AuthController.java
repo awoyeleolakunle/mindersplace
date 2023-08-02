@@ -2,7 +2,7 @@ package com.example.mindersplace.controller;
 
 import com.example.mindersplace.dtos.request.LoginRequest;
 import com.example.mindersplace.dtos.request.RegistrationRequest;
-import com.example.mindersplace.services.AuthenticationService;
+import com.example.mindersplace.services.authentication.AuthenticationService;
 import com.example.mindersplace.utils.ApiResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

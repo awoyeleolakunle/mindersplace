@@ -22,7 +22,7 @@ public class ChildRegistrationRequest {
     private LocalDate dateOfBirth;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    private String country;
+    private String countryOfBirth;
     private Parent parent;
 
 }

@@ -33,7 +33,7 @@ public class ChangeForgotPasswordServiceImpl  implements ChangeForgotPasswordSer
     public ApiResponse sendResetPasswordLink(String recipientEmailAddress) {
         boolean isRegisteredUser = userService.findByEmailAddress(recipientEmailAddress)!= null;
         if (isRegisteredUser) {
-            String token = generateToken();
+            String token = generateToken(recipientEmailAddress);
             EmailNotificationRequest request = buildEmailRequest(recipientEmailAddress, token);
             RestTemplate restTemplate = new RestTemplate();
             HttpHeaders httpHeaders = buildHttpHeaders();
@@ -59,10 +59,11 @@ public class ChangeForgotPasswordServiceImpl  implements ChangeForgotPasswordSer
         return request;
     }
 
-    private String generateToken() {
+    private String generateToken(String emailAddress) {
          return JWT.create()
                 .withIssuedAt(Instant.now())
                 .withExpiresAt(Instant.now().plusSeconds(300L))
+                 .withClaim("emailAddress",emailAddress)
                 .sign(Algorithm.HMAC512("secret".getBytes()));
     }
 }

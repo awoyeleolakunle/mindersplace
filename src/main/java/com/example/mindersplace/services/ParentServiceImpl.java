@@ -4,6 +4,7 @@ import com.example.mindersplace.data.models.Parent;
 import com.example.mindersplace.data.repositories.ParentRepository;
 import com.example.mindersplace.dtos.request.ChildRegistrationRequest;
 
+import com.example.mindersplace.services.childService.ChildService;
 import com.example.mindersplace.utils.ApiResponse;
 import com.example.mindersplace.utils.GenerateApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,5 +63,15 @@ public class ParentServiceImpl implements ParentService{
           return foundParent;
         }
         return null;
+    }
+
+    @Override
+    public List<Child> findAllChild(String parentEmailAddress) {
+    var foundParent = parentRepository.findByUserEmailAddress(parentEmailAddress);
+    if(foundParent.isPresent()){
+        var parent = foundParent.get();
+        return parent.getChild();
+    }
+    return null;
     }
 }

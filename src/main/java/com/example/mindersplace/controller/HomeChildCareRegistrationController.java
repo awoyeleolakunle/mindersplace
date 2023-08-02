@@ -1,7 +1,7 @@
 package com.example.mindersplace.controller;
 
 import com.example.mindersplace.dtos.request.HomeChildCareRegistrationRequest;
-import com.example.mindersplace.services.HomeChildCareRegistrationService;
+import com.example.mindersplace.services.homeChildCare.HomeChildCareRegistrationService;
 import com.example.mindersplace.utils.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

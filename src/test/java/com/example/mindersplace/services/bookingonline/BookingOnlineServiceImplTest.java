@@ -3,7 +3,7 @@ package com.example.mindersplace.services.bookingonline;
 import com.example.mindersplace.data.models.*;
 import com.example.mindersplace.dtos.request.BookingOnlineRequest;
 import com.example.mindersplace.dtos.request.ChildRegistrationRequest;
-import com.example.mindersplace.services.ChildService;
+import com.example.mindersplace.services.childService.ChildService;
 import com.example.mindersplace.services.ParentService;
 import com.example.mindersplace.services.UserService;
 

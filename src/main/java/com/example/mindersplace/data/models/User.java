@@ -24,13 +24,17 @@ public class User {
     private String postCode;
     private String city;
     private String address;
+    private String phoneNumber;
     @ElementCollection(targetClass = Roles.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "user_role")
+           // joinColumns = @JoinColumn(name = "user_id"))
     private Set<Roles> roles;
     @Enumerated(EnumType.STRING)
     private UserCategory userCategory;
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private  Card card;
+   // @Column(name = "credit_Id")
+   // @PrimaryKeyJoinColumn(name = "credit_card_id")
+    @OneToOne
+    private CreditCard card;
 
 }

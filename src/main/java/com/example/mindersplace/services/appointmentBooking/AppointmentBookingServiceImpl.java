@@ -1,4 +1,4 @@
-package com.example.mindersplace.services;
+package com.example.mindersplace.services.appointmentBooking;
 
 import com.example.mindersplace.data.models.AppointmentBooking;
 import com.example.mindersplace.data.repositories.AppointmentBookingRepository;

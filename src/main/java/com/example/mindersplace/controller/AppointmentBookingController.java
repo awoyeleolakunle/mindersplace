@@ -1,7 +1,7 @@
 package com.example.mindersplace.controller;
 
 import com.example.mindersplace.dtos.request.AppointmentBookingRequest;
-import com.example.mindersplace.services.AppointmentBookingService;
+import com.example.mindersplace.services.appointmentBooking.AppointmentBookingService;
 import com.example.mindersplace.utils.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

@@ -16,5 +16,6 @@ public class CardRequest {
     private String cardNumber;
     private String cvv;
     private String cardImageUrl;
-    private String expiryDate;
+    private String expiryMonth;
+    private String expiryYear;
 }

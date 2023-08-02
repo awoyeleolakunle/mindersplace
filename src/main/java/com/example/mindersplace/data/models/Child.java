@@ -1,6 +1,8 @@
 package com.example.mindersplace.data.models;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,6 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @ToString
+
 public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,11 +24,10 @@ public class Child {
     private String firstName;
     private String middleName;
     private String lastName;
-    private LocalDate dateOfBirth;
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    private LocalDateTime dateOfBirth;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    private String country;
-    @ManyToOne
-    @JoinColumn(name = "parent_id")
-    private Parent parent;
+    private String countryOfBirth;
+
 }

@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.*;
 public class BookOnlineController {
     private final BookingOnlineService bookingOnlineService;
 
-    @PostMapping("bookOnline/{emailAddress}")
-    public ResponseEntity<ApiResponse> bookOnline(@RequestBody  BookingOnlineRequest bookingOnlineRequest, @PathVariable String emailAddress){
+    //  todo @PostMapping("bookOnline/{emailAddress}") This is the format for pathVariable
+    @PostMapping("bookOnline")
+   // todo this format for pathVariables public ResponseEntity<ApiResponse> bookOnline(@RequestBody  BookingOnlineRequest bookingOnlineRequest, @PathVariable("emailAddress")  String emailAddress)
+
+
+    public ResponseEntity<ApiResponse> bookOnline(@RequestBody  BookingOnlineRequest bookingOnlineRequest, @RequestParam String emailAddress) {
         ApiResponse response = bookingOnlineService.bookOnline(bookingOnlineRequest, emailAddress);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

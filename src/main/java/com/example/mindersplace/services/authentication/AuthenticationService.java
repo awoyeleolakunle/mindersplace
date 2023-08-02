@@ -1,4 +1,4 @@
-package com.example.mindersplace.services;
+package com.example.mindersplace.services.authentication;
 
 import com.example.mindersplace.data.models.*;
 
@@ -7,12 +7,15 @@ import com.example.mindersplace.dtos.request.LoginRequest;
 import com.example.mindersplace.dtos.request.RegistrationRequest;
 import com.example.mindersplace.exceptions.UserException;
 import com.example.mindersplace.exceptions.UserManagementException;
+import com.example.mindersplace.mail.MailService;
 import com.example.mindersplace.security.JwtService;
+import com.example.mindersplace.services.*;
 import com.example.mindersplace.utils.ApiResponse;
 import com.example.mindersplace.utils.GenerateApiResponse;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
@@ -25,10 +28,7 @@ import org.thymeleaf.context.Context;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
-import java.util.Base64;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +49,8 @@ public class AuthenticationService {
     private final VerificationTokenService verificationTokenService;
 
     private final TemplateEngine templateEngine;
+    @Autowired
+    private final MailService mailService;
 
 
     public ApiResponse Register( RegistrationRequest registrationRequest) {
@@ -77,17 +79,22 @@ public class AuthenticationService {
         }
 
 //        String token = generateVerificationToken(4);
+//        log.info(token);
 //        VerificationToken verificationToken = new VerificationToken(
 //                token,
 //                LocalDateTime.now().plusMinutes(15),
 //                LocalDateTime.now(),
 //                savedUser
 //        );
-
+//        log.info("here i am....1 {}", verificationToken.getVerificationToken());
+//
 //        verificationTokenService.save(verificationToken);
 //        log.info(verificationToken.getVerificationToken());
-      //  EmailNotificationRequest emailNotificationRequest = buildNotificationRequest(savedUser.getEmailAddress(), savedUser.getFirstName(), verificationToken.getVerificationToken());
-
+//        EmailNotificationRequest emailNotificationRequest = buildNotificationRequest(savedUser.getEmailAddress(), savedUser.getFirstName(), verificationToken.getVerificationToken());
+//        String response = mailService.sendMail(emailNotificationRequest);
+//        if(response==null){
+//            return GenerateApiResponse.notOkResponse(GenerateApiResponse.TRY_AGAIN);
+//        }
             UserDetails userDetails = userDetailsService.loadUserByUsername(savedUser.getEmailAddress());
             String jwt = jwtService.generateToken(userDetails);
             return GenerateApiResponse.createdResponse(jwt);
@@ -96,12 +103,18 @@ public class AuthenticationService {
     private EmailNotificationRequest buildNotificationRequest(String email, String firstName, String token) {
         EmailNotificationRequest request = new EmailNotificationRequest();
         request.setRecipientEmailAddress(email);
+        log.info(email);
+        log.info(firstName, token);
 
         Context context = new Context();
-        context.setVariables (Map.of ("firstName", firstName, "token", token));
-
+        Map<String, Object> map = new HashMap<>();
+        map.put("firstName", firstName);
+        map.put("token", token);
+        context.setVariables (Map.of("firstName", firstName, "token", token));
+        log.info(context.toString());
         String content = templateEngine.process ("Activate", context);
         request.setHtmlContent (content);
+        log.info("I'm the request's content {}",request.getHtmlContent() );
         return request;
     }
 
@@ -136,7 +149,7 @@ public class AuthenticationService {
         UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getEmailAddress());
         if(userDetails== null) throw new UserManagementException("Unknown User");
         String jwt = jwtService.generateToken(userDetails);
-        revokeAllUserToken(loginRequest.getEmailAddress());
+       // revokeAllUserToken(loginRequest.getEmailAddress());
         saveToken(jwt, loginRequest.getEmailAddress());
         return GenerateApiResponse.okResponse("Bearer "+jwt);
     }

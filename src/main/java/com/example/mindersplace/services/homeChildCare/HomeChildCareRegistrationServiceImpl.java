@@ -1,4 +1,4 @@
-package com.example.mindersplace.services;
+package com.example.mindersplace.services.homeChildCare;
 
 import com.example.mindersplace.data.models.ClassType;
 import com.example.mindersplace.data.models.HomeChildCareRegistration;

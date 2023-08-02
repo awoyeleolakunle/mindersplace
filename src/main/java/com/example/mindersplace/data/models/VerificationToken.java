@@ -21,10 +21,14 @@ public class VerificationToken {
     private LocalDateTime createdAt;
     private LocalDateTime confirmedAt;
     private LocalDateTime expiredAt;
-    @ManyToOne
-    private User user;
+//    @ManyToOne
+//    private User user;
 
-    public VerificationToken(String token, LocalDateTime plusMinutes, LocalDateTime now, User savedUser) {
+    public VerificationToken(String token, LocalDateTime plusMinutes, LocalDateTime now) {
+        this.verificationToken = token;
+        this.expiredAt = plusMinutes;
+        this.createdAt = now;
+//        this.user = savedUser;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.mindersplace.services;
+package com.example.mindersplace.services.appointmentBooking;
 
 import com.example.mindersplace.dtos.request.AppointmentBookingRequest;
 import com.example.mindersplace.utils.ApiResponse;

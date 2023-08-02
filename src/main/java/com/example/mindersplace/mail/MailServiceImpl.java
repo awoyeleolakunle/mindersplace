@@ -17,16 +17,13 @@ public class MailServiceImpl implements MailService{
 
     private final MailConfiguration mailConfiguration;
     @Override
-    public String sendMail( String recipientEmailAddress) {
-        EmailNotificationRequest request = new EmailNotificationRequest();
-        request.setRecipientEmailAddress(recipientEmailAddress);
-        request.setSubject(GenerateApiResponse.EMAIL_SUBJECT);
-        request.setHtmlContent(GenerateApiResponse.EMAIL_CONTENT);
+    public String sendMail( EmailNotificationRequest emailNotificationRequest) {
+
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         httpHeaders.set("api_key", mailConfiguration.getApiKey());
-        HttpEntity<EmailNotificationRequest> requestHttpEntity = new HttpEntity<>(request, httpHeaders);
+        HttpEntity<EmailNotificationRequest> requestHttpEntity = new HttpEntity<>(emailNotificationRequest, httpHeaders);
         ResponseEntity<String > response = restTemplate.postForEntity(mailConfiguration.getMailUrl(), requestHttpEntity, String.class);
         return response.getBody();
     }

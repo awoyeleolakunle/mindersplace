@@ -3,6 +3,9 @@ package com.example.mindersplace.data.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Builder
 @Getter
@@ -22,5 +25,9 @@ public class Minder {
     private String applicationCode;
     private String country;
     private boolean isActive;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @Column(name = "clockInAndOut")
+    private List<ClockRecord> clockRecord;
 
 }

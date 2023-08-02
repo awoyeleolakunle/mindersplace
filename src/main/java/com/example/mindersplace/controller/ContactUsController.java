@@ -1,13 +1,12 @@
 package com.example.mindersplace.controller;
 
 import com.example.mindersplace.dtos.request.ContactUsRequest;
-import com.example.mindersplace.services.ContactUsService;
+import com.example.mindersplace.services.contactUs.ContactUsService;
 import com.example.mindersplace.utils.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

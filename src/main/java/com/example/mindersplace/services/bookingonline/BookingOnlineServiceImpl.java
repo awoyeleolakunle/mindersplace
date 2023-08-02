@@ -1,9 +1,12 @@
 package com.example.mindersplace.services.bookingonline;
 
 import com.example.mindersplace.data.models.BookingRecord;
+import com.example.mindersplace.data.models.Child;
 import com.example.mindersplace.data.models.Parent;
 import com.example.mindersplace.data.repositories.BookingRecordRepository;
+import com.example.mindersplace.data.repositories.ChildRepository;
 import com.example.mindersplace.dtos.request.BookingOnlineRequest;
+import com.example.mindersplace.services.childService.ChildService;
 import com.example.mindersplace.services.ParentService;
 import com.example.mindersplace.utils.ApiResponse;
 import com.example.mindersplace.utils.GenerateApiResponse;
@@ -24,11 +27,25 @@ public class BookingOnlineServiceImpl implements BookingOnlineService{
     private final ParentService parentService;
     private final BookingRecordRepository bookingRecordRepository;
 
+    private final ChildService childService;
 
+    private final ChildRepository childRepository;
 
     @Override
     public ApiResponse bookOnline(BookingOnlineRequest bookingOnlineRequest, String emailAddress) {
+        System.out.println("i entered bookings");
+        System.out.println("I am the online booking childlist" + bookingOnlineRequest.getChild());
+        List<Child> newChildList = new ArrayList<>();
+        for ( Child child: bookingOnlineRequest.getChild()) {
+            var foundChild = childRepository.findById(child.getId());
+            foundChild.ifPresent(newChildList::add);
+        }
         BookingRecord bookingRecord = modelMapper.map(bookingOnlineRequest, BookingRecord.class);
+        bookingRecord.setChild(newChildList);
+     //   List<Child> mergedChildren = new ArrayList<>();
+      //  mergedChildren.addAll(bookingOnlineRequest.getChild());
+     //   bookingRecord.setChild(mergedChildren);
+
         BookingRecord savedBookingRecord = bookingRecordRepository.save(bookingRecord);
         Parent foundParent = parentService.findByUserEmailAddress(emailAddress);
         List<BookingRecord> newList =  foundParent.getBookingRecord();
@@ -37,4 +54,11 @@ public class BookingOnlineServiceImpl implements BookingOnlineService{
         parentService.saveParent(foundParent);
         return GenerateApiResponse.createdResponse(savedBookingRecord);
     }
+
+    @Override
+    public List<BookingRecord> fetchParentBookingHistory(String parentEmailAddress) {
+        Parent parent = parentService.findByUserEmailAddress(parentEmailAddress);
+        return parent.getBookingRecord();
+    }
+
 }
