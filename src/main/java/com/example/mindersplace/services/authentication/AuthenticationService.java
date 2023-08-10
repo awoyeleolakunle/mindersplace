@@ -128,6 +128,7 @@ public class AuthenticationService {
 
     private User buildSavedUser(RegistrationRequest registrationRequest) {
         Set<Roles> userRoles = new HashSet<>();
+        userRoles.add(Roles.PARENT);
         userRoles.add(Roles.USER);
         User user = User.builder()
                 .emailAddress(registrationRequest.getEmailAddress())

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -61,4 +62,9 @@ public class BookingOnlineServiceImpl implements BookingOnlineService{
         return parent.getBookingRecord();
     }
 
+    @Override
+    public BookingRecord fetchBookingRecord(Long bookingId) {
+        Optional<BookingRecord> foundBookingRecord = bookingRecordRepository.findById(bookingId);
+        return foundBookingRecord.orElse(null);
+    }
 }

@@ -25,6 +25,7 @@ public class User {
     private String city;
     private String address;
     private String phoneNumber;
+    private String country;
     @ElementCollection(targetClass = Roles.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_role")

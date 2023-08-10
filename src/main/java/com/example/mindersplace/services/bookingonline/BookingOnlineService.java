@@ -11,4 +11,6 @@ public interface BookingOnlineService {
 
    List<BookingRecord> fetchParentBookingHistory(String parentEmailAddress);
 
+   BookingRecord fetchBookingRecord(Long bookingId);
+
 }
