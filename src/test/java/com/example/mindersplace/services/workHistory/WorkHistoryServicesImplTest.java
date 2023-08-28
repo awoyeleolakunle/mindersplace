@@ -1,9 +1,9 @@
 package com.example.mindersplace.services.workHistory;
 
-import com.example.mindersplace.data.models.ClockRecord;
 import com.example.mindersplace.data.models.Minder;
 import com.example.mindersplace.data.models.User;
-import com.example.mindersplace.dtos.request.ClockRecordRequest;
+import com.example.mindersplace.dtos.request.ClockInRequest;
+import com.example.mindersplace.dtos.request.ClockOutRequest;
 import com.example.mindersplace.services.MinderService;
 import com.example.mindersplace.services.UserService;
 import com.example.mindersplace.services.clockRecord.ClockRecordService;
@@ -11,11 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
@@ -41,16 +36,31 @@ class WorkHistoryServicesImplTest {
 
          Minder minder = new Minder();
          minder.setUser(user);
-         minderService.registerMinder(minder);
-         var savedClockRecord = clockRecordService.clockIn(minder.getUser().getEmailAddress());
-         clockRecordService.clockOut(savedClockRecord.getData());
+         minderService.saveMinder(minder);
+
+         ClockInRequest clockInRequest = new ClockInRequest();
+         clockInRequest.setClockInTime("7:00 AM");
+
+         ClockOutRequest clockOutRequest = new ClockOutRequest();
+         clockOutRequest.setClockOutTime("3:00 PM");
+         var savedClockRecord = clockRecordService.clockIn(minder.getUser().getEmailAddress(), clockInRequest);
+         clockRecordService.clockOut(savedClockRecord.getData(), clockOutRequest );
 
          log.info("I'm the first clockRecord {} ", savedClockRecord);
 
-       var secondSavedClockRecord = clockRecordService.clockIn("emailAddress");
-       clockRecordService.clockOut(savedClockRecord.getData());
+
+         ClockInRequest clockInRequest1 = new ClockInRequest();
+         clockInRequest1.setClockInTime("9:00 AM");
+
+         ClockOutRequest clockOutRequest1 = new ClockOutRequest();
+         clockOutRequest1.setClockOutTime("4:00 PM");
+
+       var secondSavedClockRecord = clockRecordService.clockIn("emailAddress", clockInRequest1 );
+       clockRecordService.clockOut(secondSavedClockRecord.getData(), clockOutRequest1);
 
        log.info("I'm the second clockRecord {} ", secondSavedClockRecord);
 
      }
+
+
 }

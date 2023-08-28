@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface MinderRepository extends JpaRepository<Minder, Long> {
-    Optional<Minder> findByUserEmailAddress(String emailAddress);
+    Optional<Minder> findByUser_EmailAddress(String emailAddress);
 }
 

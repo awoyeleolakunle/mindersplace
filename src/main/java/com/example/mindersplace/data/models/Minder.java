@@ -25,6 +25,15 @@ public class Minder {
     private String applicationCode;
     private String country;
     private boolean isActive;
+    private String certificateNumber;
+    private String certificateImgUrl;
+    private String firstAidNumber;
+    private String firstAidImgUrl;
+    private String foodQualificationNumber;
+    private String foodQualificationImgUrl;
+    private String level3AwardNumber;
+    private String level3AwardImgUrl;
+    private String personalIdNumber;
 
     @OneToMany(fetch = FetchType.EAGER)
     @Column(name = "clockInAndOut")

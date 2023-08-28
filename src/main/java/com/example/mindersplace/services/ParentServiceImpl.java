@@ -28,10 +28,11 @@ public class ParentServiceImpl implements ParentService{
 
     @Override
     public ApiResponse addAChild(String parentEmailAddress, ChildRegistrationRequest childRegistrationRequest) {
-         Optional<Parent> parent = parentRepository.findByUserEmailAddress(parentEmailAddress);
-         log.info("i'm the parent {}", parent.get());
+         Optional<Parent> parent = parentRepository.findByUser_EmailAddress(parentEmailAddress);
 
         if (parent.isPresent()) {
+            log.info("i'm the parent {}", parent.get());
+
             //childRegistrationRequest.setParent(parent.get());
             Child child = childService.save(childRegistrationRequest);
                 var foundChild = parent.get().getChild();
@@ -57,9 +58,13 @@ public class ParentServiceImpl implements ParentService{
     @Override
     public Parent findByUserEmailAddress(String emailAddress) {
 
-        Optional<Parent> parent  = parentRepository.findByUserEmailAddress(emailAddress);
+        System.out.println("yes yes yes ");
+
+        Optional<Parent> parent  = parentRepository.findByUser_EmailAddress(emailAddress);
         if(parent.isPresent()){
+
           Parent foundParent = parent.get();
+            System.out.println("yes yes yes " + foundParent);
           return foundParent;
         }
         return null;
@@ -67,9 +72,9 @@ public class ParentServiceImpl implements ParentService{
 
     @Override
     public List<Child> findAllChild(String parentEmailAddress) {
-    var foundParent = parentRepository.findByUserEmailAddress(parentEmailAddress);
+    Optional<Parent> foundParent = parentRepository.findByUser_EmailAddress(parentEmailAddress);
     if(foundParent.isPresent()){
-        var parent = foundParent.get();
+        Parent parent = foundParent.get();
         return parent.getChild();
     }
     return null;

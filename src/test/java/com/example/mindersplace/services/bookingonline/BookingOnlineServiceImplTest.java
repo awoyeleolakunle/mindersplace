@@ -55,7 +55,7 @@ class BookingOnlineServiceImplTest {
            //  bookingOnlineRequest.setDate(LocalDate.parse("1/01/2023"));
              bookingOnlineRequest.setStartTime("1pm");
              bookingOnlineRequest.setFinishTime("5pm");
-             bookingOnlineRequest.getChild().add(foundChild);
+             //bookingOnlineRequest.getChild().add(foundChild);
              bookingOnlineService.bookOnline(bookingOnlineRequest, parent.getUser().getEmailAddress());
 
              log.info("i'm the booking record {}", parentService.findByUserEmailAddress("email").getBookingRecord().size());

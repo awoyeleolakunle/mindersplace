@@ -16,6 +16,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
@@ -27,7 +28,6 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.security.SecureRandom;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -74,7 +74,8 @@ public class AuthenticationService {
                         .unitCity(registrationRequest.getUnitCity())
                         .user(savedUser)
                         .build();
-                minderService.registerMinder(minder);
+                minder.setUser(savedUser);
+                minderService.saveMinder(minder);
             }
         }
 
@@ -128,8 +129,14 @@ public class AuthenticationService {
 
     private User buildSavedUser(RegistrationRequest registrationRequest) {
         Set<Roles> userRoles = new HashSet<>();
-        userRoles.add(Roles.PARENT);
-        userRoles.add(Roles.USER);
+        if(registrationRequest.getUserCategory().equals("PARENT")) {
+            userRoles.add(Roles.PARENT);
+            userRoles.add(Roles.USER);
+        }
+        else if(registrationRequest.getUserCategory().equals("MINDER")){
+            userRoles.add(Roles.MINDER);
+            userRoles.add(Roles.USER);
+        }
         User user = User.builder()
                 .emailAddress(registrationRequest.getEmailAddress())
                 .lastName(registrationRequest.getLastName())
@@ -186,9 +193,10 @@ public class AuthenticationService {
     public void createUser(){
         Set<Roles> userRoles = new HashSet<>();
         userRoles.add(Roles.ADMIN);
+        userRoles.add(Roles.USER);
         User user = User.builder()
-                .emailAddress("prof@gmail.com")
-                .password(passwordEncoder.encode("ab1"))
+                .emailAddress("olakunleawoyele@gmail.com")
+                .password(passwordEncoder.encode("12345"))
                 .roles(userRoles)
                 .build();
         userService.saveUser(user);

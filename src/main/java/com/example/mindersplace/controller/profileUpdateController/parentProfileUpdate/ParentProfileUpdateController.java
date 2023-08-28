@@ -1,4 +1,4 @@
-package com.example.mindersplace.controller.profileUpdateController;
+package com.example.mindersplace.controller.profileUpdateController.parentProfileUpdate;
 
 
 import com.example.mindersplace.dtos.request.ProfileUpdateRequest;

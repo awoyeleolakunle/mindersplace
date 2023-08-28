@@ -30,12 +30,15 @@ public class GenerateApiResponse {
     public static final String TRY_AGAIN ="Something went wrong, please try again" ;
     public static final String RECORD_NOT_FOUND = "Record not found, please try again";
     public static final String CARD_SUCCESSFULLY_SAVED ="You have successfully saved a card" ;
+    public static final String UPLOAD_SUCCESSFUL = "You have successfully uploaded your qualification documents";
+    public static final String VERIFY_THAT_ITS_YOU = "Verify Otp code";
+    public static final Object VERIFICATION_SUCCESSFUL = "Your Account has been successfully verified";
 
     public static ApiResponse createdResponse(Object data) {
         return ApiResponse.builder()
-                .statusCode(HttpStatus.CREATED.value())
+                .statusCode(HttpStatus.OK.value())
                 .isSuccessful(true)
-                .httpStatus(HttpStatus.CREATED)
+                .httpStatus(HttpStatus.OK)
                 .data(data)
                 .build();
     }

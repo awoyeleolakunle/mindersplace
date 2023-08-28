@@ -1,4 +1,4 @@
-package com.example.mindersplace.controller.profileUpdateController;
+package com.example.mindersplace.controller.profileUpdateController.parentProfileUpdate;
 
 import com.example.mindersplace.services.profileUpdate.parentProfileUpdate.ParentProfileDetailsService;
 import com.example.mindersplace.utils.ApiResponse;

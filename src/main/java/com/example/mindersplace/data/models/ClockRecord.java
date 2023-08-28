@@ -23,4 +23,8 @@ public class ClockRecord {
     private Long id;
     private LocalDateTime clcokIn;
     private LocalDateTime clockOUt;
+    private String timeIn;
+    private String timeOut;
+    private String dayOfTheWeek;
+    private String date;
 }

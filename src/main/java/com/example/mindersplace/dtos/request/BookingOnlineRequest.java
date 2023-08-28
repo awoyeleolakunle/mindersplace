@@ -19,5 +19,5 @@ public class BookingOnlineRequest {
     private LocalDate date;
     private String startTime;
     private String finishTime;
-    private List<Child> child;
+    private List<Long> child;
 }

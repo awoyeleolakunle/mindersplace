@@ -18,14 +18,13 @@ import java.util.List;
 @Setter
 public class BookingRecord {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private LocalDate date;
     private String startTime;
     private String finishTime;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @Column(name = "child_ren")
     private List<Child> child;
     private BigDecimal amount;
     private boolean isPaid;

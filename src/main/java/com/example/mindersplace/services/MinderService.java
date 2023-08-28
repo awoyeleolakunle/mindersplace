@@ -5,9 +5,9 @@ import com.example.mindersplace.dtos.request.ClockRecordRequest;
 import com.example.mindersplace.utils.ApiResponse;
 
 public interface MinderService {
-    Minder registerMinder(Minder minder);
+    Minder saveMinder(Minder minder);
 
     ApiResponse clockInClockOut(ClockRecordRequest ClockRecordRequest, String emailAddress);
 
-    Minder findByEmailAddress(String emailAddress);
+    Minder findByEmailAddress(String minderEmailAddress);
 }
